@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Clube Capacete Limpo: planos de higienização de capacetes para quem usa moto no dia a dia.">
-  <title>Clube Capacete Limpo | Seu capacete sempre cuidado</title>
+  <meta name="description" content="Capacete Limpo: higienização de capacetes, pacotes pré-pagos e consulta de cupons.">
+  <title>Capacete Limpo | Higienização e pacotes</title>
 
   <style>
     :root {
@@ -519,45 +519,127 @@
         order: -1;
       }
     }
+
+    /* Cabeçalho simplificado e menu lateral */
+    .menu-novo { min-height: 72px; flex-direction: row !important; padding: 12px 0 !important; }
+    .menu-novo .logo { font-size: clamp(19px, 4vw, 24px); }
+    .slogan-marca { display:block; margin-top:5px; font-size:clamp(10px, 2.3vw, 13px); font-weight:500; letter-spacing:0; color:var(--azul); line-height:1.35; text-transform:none; }
+    .menu-toggle { display:flex; width:46px; height:44px; flex-direction:column; align-items:center; justify-content:center; gap:5px; border:1px solid #cfe5f5; border-radius:10px; background:#f2f9ff; cursor:pointer; }
+    .menu-toggle span { width:22px; height:3px; border-radius:3px; background:var(--azul-escuro); }
+    .menu-overlay { position:fixed; inset:0; background:rgba(7,29,46,.48); z-index:29; }
+    .menu-overlay[hidden] { display:none; }
+    .menu-lateral { position:fixed; right:0; top:0; height:100dvh; width:min(330px,88vw); background:white; z-index:30; padding:24px; box-shadow:-12px 0 35px rgba(0,0,0,.12); transform:translateX(105%); transition:transform .22s ease; overflow-y:auto; }
+    .menu-lateral.aberto { transform:translateX(0); }
+    .menu-lateral-topo { display:flex; align-items:center; justify-content:space-between; color:var(--azul-escuro); font-size:21px; margin-bottom:24px; }
+    .menu-fechar { border:0; background:#eaf6ff; color:var(--azul-escuro); width:40px; height:40px; border-radius:10px; font-size:30px; cursor:pointer; }
+    .menu-lateral-links { display:flex; flex-direction:column; align-items:stretch; gap:6px; }
+    .menu-lateral-links > a, .menu-lateral-links summary { padding:14px 10px; display:block; font-size:16px; font-weight:700; color:var(--azul-escuro); border-bottom:1px solid #e1edf5; cursor:pointer; }
+    .menu-lateral-links small { font-size:11px; color:var(--cinza); font-weight:400; margin-left:4px; }
+    .menu-lateral-links summary::marker { color:var(--azul); }
+    .menu-subitens { display:flex; flex-direction:column; padding:5px 0 10px 20px; }
+    .menu-subitens a { padding:10px; color:var(--azul-escuro); font-size:14px; }
+    section[id] { scroll-margin-top:85px; }
+    /* Apresentação dos benefícios dos pacotes */
+    .pacotes-intro { background: linear-gradient(180deg, #eaf6ff 0%, #ffffff 100%); scroll-margin-top: 90px; }
+    .pacotes-intro .titulo-secao { max-width: 800px; }
+    .pacotes-intro .titulo-secao p { font-size: 17px; }
+    .beneficios-pacotes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .beneficios-pacotes .beneficio { box-shadow: 0 5px 20px rgba(6,75,123,.05); }
+    .pacotes-regras { margin-top: 24px; text-align: center; color: var(--cinza); font-size: 13px; }
+    @media (max-width: 760px) { .beneficios-pacotes { grid-template-columns: 1fr; } }
+
+    /* Cartões dos quatro pacotes pré-pagos */
+    .lista-pacotes {grid-template-columns: repeat(4, minmax(0, 1fr));gap:16px}
+    .lista-pacotes .plano {padding:24px 18px;min-width:0}
+    .lista-pacotes .plano h3 {font-size:21px}
+    .lista-pacotes .plano .descricao {min-height:54px}
+    .lista-pacotes .preco {font-size:29px;line-height:1.25;margin:16px 0 10px}
+    .lista-pacotes .preco small {display:block;font-size:12px}
+    .pacote-total {font-size:15px;color:var(--azul-escuro);margin-bottom:12px}
+    .pacote-desconto {background:#e0f4ff;color:#064b7b;font-weight:800;text-align:center;padding:10px;border-radius:10px;font-size:19px}
+    .pacote-economia {color:var(--cinza);font-size:13px;text-align:center;margin:9px 0 18px}
+    .lista-pacotes .plano ul {margin-top:8px}
+    .lista-pacotes .plano .botao {padding:12px 8px;font-size:13px}
+    .pacote-regular {border-top:5px solid #14a04a}
+    .pacote-frequente {border-top:5px solid #ff8a00}
+    .pacote-intensivo {border-top:5px solid #d52237}
+    .pacote-basico {border-top:5px solid #0879c9}
+    @media (max-width: 1000px) {.lista-pacotes {grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width: 760px) {.lista-pacotes {grid-template-columns:1fr}.lista-pacotes .plano {padding:25px}}
+
+    /* Hierarquia visual dos pacotes: quantidade e valor total em destaque */
+    .lista-pacotes .plano {gap:0}
+    .pacote-quantidade {display:flex;align-items:center;gap:11px;min-height:90px;margin:12px 0 18px}
+    .pacote-numero {font-size:clamp(44px,4vw,62px);font-weight:900;line-height:1;letter-spacing:-2px;color:var(--azul)}
+    .pacote-tipo {font-size:16px;line-height:1.3;font-weight:750;color:var(--azul-escuro)}
+    .pacote-regular .pacote-numero {color:#11874b}
+    .pacote-frequente .pacote-numero {color:#df7400}
+    .pacote-intensivo .pacote-numero {color:#c52b40;font-size:clamp(34px,2.8vw,43px);letter-spacing:-1px}
+    .pacote-preco-principal {margin:0 0 4px;color:var(--azul-escuro)}
+    .pacote-rotulo-preco {display:block;font-size:13px;font-weight:600;color:var(--cinza);margin-bottom:2px}
+    .pacote-preco-principal strong {display:block;font-size:clamp(30px,3vw,43px);font-weight:900;line-height:1.2;white-space:nowrap}
+    .pacote-preco-variavel strong {font-size:clamp(19px,2vw,24px);white-space:normal;min-height:52px}
+    .pacote-preco-unitario {font-size:14px;color:var(--cinza);margin-bottom:18px}
+    .lista-pacotes .pacote-economia {margin-bottom:24px}
+    .lista-pacotes .botao {margin-top:auto}
+    @media (max-width:760px) {.pacote-quantidade{min-height:auto}.pacote-preco-principal strong{font-size:38px}}
+
+    /* Contato: links com ícones vetoriais e boa leitura no celular */
+    #contato { scroll-margin-top: 100px; }
+    .contato-links { display: flex; justify-content: center; align-items: stretch; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
+    .contato-link { display: flex; align-items: center; justify-content: center; gap: 12px; min-width: 280px; padding: 16px 22px; background: #fff; color: var(--azul-escuro); border-radius: 14px; text-align: left; transition: transform .2s, background .2s; }
+    .contato-link:hover { background: #eaf6ff; transform: translateY(-2px); }
+    .contato-link svg { width: 34px; height: 34px; flex-shrink: 0; }
+    .contato-link span { display: flex; flex-direction: column; line-height: 1.35; }
+    .contato-link small { font-size: 13px; color: #4c6477; }
+    .contato-link strong { font-size: 18px; overflow-wrap: anywhere; }
+    @media (max-width: 640px) { .contato-links { flex-direction: column; } .contato-link { min-width: 0; width: 100%; } }
+
+    /* Consulta de cupom */
+    .consulta-cupom { background:linear-gradient(180deg,#f2f9ff,#fff); }
+    .consulta-container { max-width:850px; }
+    .consulta-formulario { background:#fff;border:1px solid #d9eaf6;border-radius:18px;padding:26px;box-shadow:0 8px 28px rgba(6,75,123,.06); }
+    .consulta-formulario label { display:block;color:var(--azul-escuro);font-weight:700;margin-bottom:10px; }
+    .consulta-entrada { display:flex;gap:12px; }
+    .consulta-entrada input { flex:1;min-width:0;padding:14px 16px;border:1px solid #b9d4e8;border-radius:9px;font:inherit;font-size:17px;text-transform:uppercase; }
+    .consulta-entrada input:focus-visible,.consulta-entrada button:focus-visible { outline:3px solid #7bc6ff;outline-offset:2px; }
+    .consulta-entrada button { border:0;cursor:pointer;font:inherit;font-weight:700; }
+    .consulta-entrada button:disabled { opacity:.65;cursor:wait; }
+    .consulta-mensagem { margin:14px 0;color:var(--azul-escuro);text-align:center;font-weight:600; }
+    .consulta-mensagem:empty { display:none; }
+    .consulta-resultado { margin-top:22px;background:#fff;border:1px solid #d9eaf6;border-radius:18px;padding:26px;box-shadow:0 8px 28px rgba(6,75,123,.06); }
+    .consulta-resultado[hidden] { display:none; }
+    .consulta-resultado-topo { display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap; }
+    .consulta-resultado-topo strong { display:block;color:var(--azul-escuro);font-size:23px;overflow-wrap:anywhere; }
+    .consulta-legenda,.consulta-detalhes span { display:block;color:var(--cinza);font-size:13px; }
+    .consulta-status { padding:7px 12px;background:#e8f3fb;color:var(--azul-escuro);border-radius:99px;font-weight:700;font-size:13px; }
+    .consulta-saldo { margin:23px 0;padding:22px;background:#eaf6ff;border-radius:14px;text-align:center;color:var(--azul-escuro); }
+    .consulta-saldo span { display:block;font-size:16px;font-weight:700; }
+    .consulta-saldo strong { display:block;font-size:clamp(48px,9vw,72px);line-height:1.1; }
+    .consulta-detalhes { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px; }
+    .consulta-detalhes > div { padding:15px;border:1px solid #e1edf5;border-radius:10px; }
+    .consulta-detalhes strong { display:block;color:var(--azul-escuro);font-size:18px;margin-top:4px; }
+    .consulta-nota { margin-top:17px;color:var(--cinza);font-size:12px; }
+    @media(max-width:560px) { .consulta-entrada{flex-direction:column}.consulta-entrada button{width:100%}.consulta-formulario,.consulta-resultado{padding:18px} }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="container menu">
-      <a class="logo" href="#inicio">
-        CAPACETE LIMPO
-        <span>Clube de assinaturas</span>
-      </a>
-
-     
-    
-      <nav aria-label="Navegação principal">
-        <div class="grupo-menu-clube">
-          <a class="titulo-menu-clube" href="#clube">
-            Clube Capacete Limpo
-          </a>
-
-          <div class="links-menu-clube">
-            <a href="#beneficios">Benefícios</a>
-            <a href="#planos">Planos</a>
-            <a href="#como-funciona">Como funciona</a>
-          </div>
-        </div>
-
-        <a
-          href="https://www.instagram.com/capacetelimpo.roo/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram da Capacete Limpo"
-        >Instagram ↗</a>
-
-        <a class="botao" href="#planos">Conhecer planos</a>
-      </nav>
-      
+  <header id="inicio">
+    <div class="container menu menu-novo">
+      <a class="logo" href="#inicio">CAPACETE LIMPO<span class="slogan-marca">Mais saúde para você, mais vida para seu capacete</span></a>
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-lateral"><span></span><span></span><span></span></button>
     </div>
   </header>
-
+  <div class="menu-overlay" hidden></div>
+  <aside class="menu-lateral" id="menu-lateral" aria-label="Menu principal" aria-hidden="true" inert>
+    <div class="menu-lateral-topo"><strong>Menu</strong><button class="menu-fechar" type="button" aria-label="Fechar menu">×</button></div>
+    <nav class="menu-lateral-links" aria-label="Navegação principal">
+      <a href="#consultar-cupom" id="link-consulta">Consulte seu cupom</a>
+      <details><summary>Pacotes</summary><div class="menu-subitens"><a href="#beneficios">Benefícios</a><a href="#planos">Escolha o seu</a><a href="#como-funciona">Como funciona</a></div></details>
+      <a href="#contato">Contato</a>
+    </nav>
+  </aside>
   <main>
     
  
@@ -608,169 +690,161 @@
       </div>
     </section>
 
-    <!-- 3. Apresentação do clube -->
-    <section class="clube-intro" id="clube">
+    <!-- 3. Benefícios dos pacotes pré-pagos -->
+    <section class="pacotes-intro" id="beneficios">
       <div class="container">
         <div class="titulo-secao">
-          <h2>Conheça o Clube Capacete Limpo</h2>
-          <p>Mais praticidade para manter seu capacete higienizado regularmente.</p>
+          <h2>Conheça os Pacotes Capacete Limpo</h2>
+          <p>Você escolhe um pacote de acordo com sua rotina e pode aproveitar condições especiais em relação ao uso avulso.</p>
         </div>
-
-        <div class="mensagem-clube">
-          <p>Mantenha seus ciclos de higienização organizados todos os meses, sem precisar lembrar de pagar por cada utilização separadamente.</p>
-
-          <p style="margin-top: 18px;">Com o Clube Capacete Limpo, você escolhe um plano de acordo com sua rotina e pode aproveitar condições especiais em relação ao uso avulso, conforme o plano escolhido.</p>
-
-          <p style="margin-top: 22px;">
-            <a class="botao" href="#planos">Conhecer os planos</a>
-          </p>
-        </div>
-      </div>
-    </section>
-   
-
-    <section id="beneficios">
-      <div class="container">
-        <div class="titulo-secao">
-          <h2>Por que fazer parte do clube?</h2>
-          <p>
-            Uma maneira prática de incluir o cuidado com seu capacete
-            na rotina de quem utiliza motocicleta.
-          </p>
-        </div>
-
-        <div class="beneficios">
+        <div class="beneficios beneficios-pacotes">
           <article class="beneficio">
-            <div class="icone">🪖</div>
+            <div class="icone" aria-hidden="true"><svg width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="19" fill="#D9EEFF" stroke="#064B7B" stroke-width="3"/><path d="M24 12v13l9 6" stroke="#0879C9" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="24" r="2" fill="#064B7B"/></svg></div>
             <h3>Cuidado periódico</h3>
-            <p>
-              Tenha ciclos de higienização disponíveis de acordo com
-              o plano contratado.
-            </p>
+            <p>Mantenha seu capacete higienizado regularmente, com utilizações disponíveis durante a validade do pacote.</p>
           </article>
-
           <article class="beneficio">
-            <div class="icone">📱</div>
-            <h3>Mais praticidade</h3>
-            <p>
-              Acesse sua área de cliente para consultar as informações
-              do plano e seu código de utilização.
-            </p>
+            <div class="icone" aria-hidden="true">📱</div>
+            <h3>Praticidade</h3>
+            <p>Faça um único pagamento pelo pacote e acompanhe suas higienizações utilizadas e disponíveis consultando o código do cupom.</p>
           </article>
-
           <article class="beneficio">
-            <div class="icone">💙</div>
-            <h3>Feito para sua rotina</h3>
-            <p>
-              Escolha a opção que melhor combina com a frequência
-              com que você utiliza sua motocicleta.
-            </p>
+            <div class="icone" aria-hidden="true">💰</div>
+            <h3>Economia em cada higienização</h3>
+            <p>Aproveite preços reduzidos em relação ao serviço avulso, com descontos de até 36% conforme o pacote escolhido.</p>
+          </article>
+          <article class="beneficio">
+            <div class="icone" aria-hidden="true">👥</div>
+            <h3>Uso compartilhado</h3>
+            <p>Compartilhe as higienizações do mesmo cupom com amigos ou familiares, respeitando o saldo e a validade do pacote.</p>
           </article>
         </div>
+        <p class="pacotes-regras">Pacotes válidos por 30 dias após a aquisição. Higienizações não utilizadas não são cumulativas.</p>
       </div>
     </section>
 
     <section class="planos" id="planos">
       <div class="container">
         <div class="titulo-secao">
-          <h2>Escolha seu plano</h2>
-          <p>
-            Opções iniciais para diferentes frequências de uso.
-          </p>
+          <h2>Escolha seu pacote</h2>
+          <p>Mais higienizações, mais economia. Escolha a opção ideal para sua rotina.</p>
         </div>
-
-        <div class="lista-planos">
-          <article class="plano">
-            <h3>Essencial</h3>
-            <p class="descricao">Para quem utiliza a moto algumas vezes por semana.</p>
-            <div class="preco">R$ 29,90 <small>/ mês</small></div>
-            <ul>
-              <li>2 higienizações por mês</li>
-              <li>Código de utilização individual</li>
-              <li>Consulta do plano pela internet</li>
-            </ul>
-            <a class="botao" href="#contato">Tenho interesse</a>
+        <div class="lista-planos lista-pacotes">
+          <article class="plano pacote-basico">
+            <h3>Pacote Básico</h3>
+            <p class="pacote-quantidade"><span class="pacote-numero">2</span><span class="pacote-tipo">Higienizações<br>profundas</span></p>
+            <div class="pacote-preco-principal"><span class="pacote-rotulo-preco">Valor total do pacote</span><strong>R$ 36,00</strong></div>
+            <p class="pacote-preco-unitario">R$ 18,00 por higienização</p>
+            <p class="pacote-desconto">18% de desconto</p>
+            <p class="pacote-economia">Economia: R$ 8,00</p>
+            <a class="botao" href="https://wa.me/5566992455086?text=Ol%C3%A1%21%20Gostaria%20de%20adquirir%20o%20Pacote%20B%C3%A1sico%20da%20Capacete%20Limpo." target="_blank" rel="noopener noreferrer">Comprar pelo WhatsApp ↗</a>
           </article>
-
-          <article class="plano destaque">
-            <h3>Frequente</h3>
-            <p class="descricao">Para quem usa a moto regularmente no dia a dia.</p>
-            <div class="preco">R$ 49,90 <small>/ mês</small></div>
-            <ul>
-              <li>4 higienizações por mês</li>
-              <li>Código de utilização individual</li>
-              <li>Consulta do plano pela internet</li>
-            </ul>
-            <a class="botao" href="#contato">Tenho interesse</a>
+          <article class="plano pacote-regular">
+            <h3>Pacote Regular</h3>
+            <p class="pacote-quantidade"><span class="pacote-numero">3</span><span class="pacote-tipo">Higienizações<br>profundas</span></p>
+            <div class="pacote-preco-principal"><span class="pacote-rotulo-preco">Valor total do pacote</span><strong>R$ 49,50</strong></div>
+            <p class="pacote-preco-unitario">R$ 16,50 por higienização</p>
+            <p class="pacote-desconto">25% de desconto</p>
+            <p class="pacote-economia">Economia: R$ 16,50</p>
+            <a class="botao" href="https://wa.me/5566992455086?text=Ol%C3%A1%21%20Gostaria%20de%20adquirir%20o%20Pacote%20Regular%20da%20Capacete%20Limpo." target="_blank" rel="noopener noreferrer">Comprar pelo WhatsApp ↗</a>
           </article>
-
-          <article class="plano">
-            <h3>Intensivo</h3>
-            <p class="descricao">Para quem passa muitas horas sobre duas rodas.</p>
-            <div class="preco">R$ 69,90 <small>/ mês</small></div>
-            <ul>
-              <li>6 higienizações por mês</li>
-              <li>Código de utilização individual</li>
-              <li>Consulta do plano pela internet</li>
-            </ul>
-            <a class="botao" href="#contato">Tenho interesse</a>
+          <article class="plano pacote-frequente">
+            <h3>Pacote Frequente</h3>
+            <p class="pacote-quantidade"><span class="pacote-numero">4</span><span class="pacote-tipo">Higienizações<br>profundas</span></p>
+            <div class="pacote-preco-principal"><span class="pacote-rotulo-preco">Valor total do pacote</span><strong>R$ 60,00</strong></div>
+            <p class="pacote-preco-unitario">R$ 15,00 por higienização</p>
+            <p class="pacote-desconto">32% de desconto</p>
+            <p class="pacote-economia">Economia: R$ 28,00</p>
+            <a class="botao" href="https://wa.me/5566992455086?text=Ol%C3%A1%21%20Gostaria%20de%20adquirir%20o%20Pacote%20Frequente%20da%20Capacete%20Limpo." target="_blank" rel="noopener noreferrer">Comprar pelo WhatsApp ↗</a>
+          </article>
+          <article class="plano pacote-intensivo">
+            <h3>Pacote Intensivo</h3>
+            <p class="pacote-quantidade"><span class="pacote-numero">5 ou mais</span><span class="pacote-tipo">Higienizações<br>profundas</span></p>
+            <div class="pacote-preco-principal pacote-preco-variavel"><span class="pacote-rotulo-preco">Valor total do pacote</span><strong>Conforme a quantidade</strong></div>
+            <p class="pacote-preco-unitario">R$ 14,00 por higienização · mínimo de 5</p>
+            <p class="pacote-desconto">36% de desconto</p>
+            <p class="pacote-economia">Economia: R$ 8,00 por higienização</p>
+            <a class="botao" href="https://wa.me/5566992455086?text=Ol%C3%A1%21%20Gostaria%20de%20adquirir%20o%20Pacote%20Intensivo%20da%20Capacete%20Limpo." target="_blank" rel="noopener noreferrer">Comprar pelo WhatsApp ↗</a>
           </article>
         </div>
-
-        <p class="aviso-planos">
-          Valores e quantidades são propostas iniciais para validação
-          comercial. A contratação ainda não está habilitada.
-        </p>
+        <p class="aviso-planos">Pacotes pré-pagos com validade de 30 dias após a aquisição. As utilizações não são cumulativas. O pacote pode ser utilizado pelo titular ou compartilhado com amigos e familiares. No Intensivo, o total depende da quantidade contratada (mínimo de 5 higienizações).</p>
       </div>
     </section>
 
     <section id="como-funciona">
       <div class="container">
         <div class="titulo-secao">
-          <h2>Simples assim</h2>
-          <p>Queremos tornar a experiência clara desde a contratação até a utilização.</p>
+          <h2>Como funciona</h2>
+          <p>Em três passos, você adquire seu pacote e começa a higienizar seu capacete.</p>
         </div>
 
         <div class="como-funciona">
           <article class="passo">
             <div class="numero">1</div>
-            <h3>Escolha seu plano</h3>
-            <p>Encontre a opção que combina com sua frequência de uso.</p>
+            <h3>Escolha seu pacote</h3>
+            <p>Selecione a quantidade de higienizações ideal para sua rotina e aproveite descontos especiais.</p>
           </article>
 
           <article class="passo">
             <div class="numero">2</div>
-            <h3>Ative sua assinatura</h3>
-            <p>Após a confirmação da contratação, você receberá as informações de acesso.</p>
+            <h3>Adquira seu cupom pelo WhatsApp</h3>
+            <p>Entre em contato com a Capacete Limpo, confirme seu pacote e receba seu código após o pagamento.</p>
           </article>
 
           <article class="passo">
             <div class="numero">3</div>
-            <h3>Utilize seus ciclos</h3>
-            <p>Consulte seu código e as condições de uso do seu plano.</p>
+            <h3>Higienize seu capacete</h3>
+            <p>Na máquina Capacete Limpo, informe o código do cupom para utilizar suas higienizações. Acompanhe seu saldo disponível pelo site.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="chamada" id="contato">
-      <div class="container">
-        <h2>Faça parte do Clube Capacete Limpo</h2>
-        <p>
-          Estamos preparando uma experiência simples para cuidar
-          melhor do seu capacete.
-        </p>
-       
-        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-          <a class="botao" href="#planos">Ver os planos</a>
+    <!-- Consulta de cupons: somente a função Supabase acessa a tabela privada. -->
+    <section id="consultar-cupom" class="consulta-cupom" aria-labelledby="titulo-consulta">
+      <div class="container consulta-container">
+        <div class="titulo-secao">
+          <h2 id="titulo-consulta">Consulte seu cupom</h2>
+          <p>Digite o código recebido na compra para acompanhar suas higienizações.</p>
+        </div>
+        <form id="form-consulta" class="consulta-formulario">
+          <label for="codigo-cupom">Código do cupom</label>
+          <div class="consulta-entrada">
+            <input id="codigo-cupom" name="codigo" type="text" placeholder="Digite seu código" maxlength="64" minlength="3" autocomplete="off" autocapitalize="characters" spellcheck="false" required>
+            <button class="botao" id="botao-consultar" type="submit">Consultar</button>
+          </div>
+        </form>
+        <p id="mensagem-consulta" class="consulta-mensagem" role="status" aria-live="polite"></p>
+        <div id="resultado-consulta" class="consulta-resultado" hidden>
+          <div class="consulta-resultado-topo">
+            <div><span class="consulta-legenda">Cupom</span><strong id="resultado-codigo"></strong></div>
+            <span id="resultado-status" class="consulta-status"></span>
+          </div>
+          <div class="consulta-saldo"><span>Higienizações disponíveis</span><strong id="resultado-saldo">—</strong></div>
+          <div class="consulta-detalhes">
+            <div><span>Contratadas</span><strong id="resultado-contratadas">—</strong></div>
+            <div><span>Utilizadas</span><strong id="resultado-utilizadas">—</strong></div>
+            <div><span>Início da validade</span><strong id="resultado-inicio">—</strong></div>
+            <div><span>Vencimento</span><strong id="resultado-vencimento">—</strong></div>
+          </div>
+          <p class="consulta-nota">Os dados são atualizados periodicamente e podem não refletir uma utilização recente.</p>
+        </div>
+      </div>
+    </section>
 
-          <a
-            class="botao"
-            href="https://www.instagram.com/capacetelimpo.roo/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visitar o Instagram da Capacete Limpo"
-          >Instagram ↗</a>
+    <section class="chamada" id="contato" aria-labelledby="titulo-contato">
+      <div class="container">
+        <h2 id="titulo-contato">Entre em contato com a Capacete Limpo</h2>
+        <p>Quer adquirir um pacote ou tirar alguma dúvida? Fale com a gente!</p>
+        <div class="contato-links">
+          <a class="contato-link" href="https://wa.me/5566992455086" target="_blank" rel="noopener noreferrer" aria-label="Conversar com a Capacete Limpo pelo WhatsApp: 66 99245-5086">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1.3-4.6a8.5 8.5 0 1 1 15.7-4.3Z"/><path d="M8.5 8.1c-.4.2-.9 1-.9 1.6 0 1.6 2.9 5 5.9 5.8.7.2 1.6-.4 1.9-1l-2-1.1-1 1c-1.4-.6-2.5-1.7-3.1-3.1l1-1-1.1-2c-.2-.3-.5-.4-.7-.2Z"/></svg>
+            <span><small>WhatsApp</small><strong>(66) 99245-5086</strong></span>
+          </a>
+          <a class="contato-link" href="https://www.instagram.com/capacetelimpo.roo/" target="_blank" rel="noopener noreferrer" aria-label="Visitar o Instagram @capacetelimpo.roo">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.6" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>
+            <span><small>Instagram</small><strong>@capacetelimpo.roo</strong></span>
+          </a>
         </div>
       </div>
     </section>
@@ -778,10 +852,104 @@
 
   <footer>
     <div class="container">
-      <p><strong>Clube Capacete Limpo</strong></p>
+      <p><strong>Capacete Limpo</strong></p>
       <p>© 2026 — Todos os direitos reservados.</p>
-      <p>Planos em fase de configuração. Contratação ainda indisponível.</p>
     </div>
   </footer>
+  <script>
+    (() => {
+      const painel = document.querySelector('.menu-lateral');
+      const fundo = document.querySelector('.menu-overlay');
+      const abrir = document.querySelector('.menu-toggle');
+      const fechar = document.querySelector('.menu-fechar');
+      let focoAnterior;
+      function alternar(visivel) {
+        if (visivel) focoAnterior = document.activeElement;
+        painel.classList.toggle('aberto', visivel);
+        painel.setAttribute('aria-hidden', String(!visivel));
+        painel.inert = !visivel;
+        fundo.hidden = !visivel;
+        abrir.setAttribute('aria-expanded', String(visivel));
+        abrir.setAttribute('aria-label', visivel ? 'Fechar menu' : 'Abrir menu');
+        document.body.style.overflow = visivel ? 'hidden' : '';
+        if (visivel) fechar.focus(); else if (focoAnterior) focoAnterior.focus();
+      }
+      abrir.addEventListener('click', () => alternar(!painel.classList.contains('aberto')));
+      fechar.addEventListener('click', () => alternar(false));
+      fundo.addEventListener('click', () => alternar(false));
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && painel.classList.contains('aberto')) alternar(false);
+        if (e.key === 'Tab' && painel.classList.contains('aberto')) {
+          const focaveis = [...painel.querySelectorAll('button, a, summary')].filter(el => el.getClientRects().length);
+          if (e.shiftKey && document.activeElement === focaveis[0]) { e.preventDefault(); focaveis.at(-1).focus(); }
+          else if (!e.shiftKey && document.activeElement === focaveis.at(-1)) { e.preventDefault(); focaveis[0].focus(); }
+        }
+      });
+      painel.querySelectorAll('a').forEach(link => link.addEventListener('click', e => {
+        
+        alternar(false);
+      }));
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const endpoint = 'https://qpqggxykvgddbnbzauuc.supabase.co/functions/v1/consultar-cupom';
+      const form = document.getElementById('form-consulta');
+      const campo = document.getElementById('codigo-cupom');
+      const botao = document.getElementById('botao-consultar');
+      const mensagem = document.getElementById('mensagem-consulta');
+      const resultado = document.getElementById('resultado-consulta');
+      const preencher = (id, valor) => { document.getElementById(id).textContent = valor; };
+      const numero = (valor) => Number.isFinite(Number(valor)) ? Math.max(0,Number(valor)).toLocaleString('pt-BR') : '—';
+      const dataBR = (valor) => {
+        if (!valor) return '—';
+        const data = new Date(valor);
+        return Number.isNaN(data.getTime()) ? '—' : new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Cuiaba',day:'2-digit',month:'2-digit',year:'numeric'}).format(data);
+      };
+      form.addEventListener('submit', async (evento) => {
+        evento.preventDefault();
+        const codigo = campo.value.trim().toUpperCase();
+        resultado.hidden = true;
+        mensagem.textContent = '';
+        if (!/^[A-Z0-9_-]{3,64}$/.test(codigo)) {
+          mensagem.textContent = 'Confira o código informado. Use apenas letras, números, hífen ou sublinhado.';
+          return;
+        }
+        botao.disabled = true;
+        botao.textContent = 'Consultando...';
+        const controlador = new AbortController();
+        const limite = setTimeout(() => controlador.abort(), 12000);
+        try {
+          const resposta = await fetch(endpoint, {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({codigo}),
+            signal:controlador.signal,
+            cache:'no-store'
+          });
+          const dados = await resposta.json().catch(() => ({}));
+          if (resposta.status === 429) { mensagem.textContent = 'Limite de consultas atingido. Aguarde 15 minutos antes de tentar novamente.'; return; }
+          if (resposta.status === 404) { mensagem.textContent = 'Cupom não encontrado. Confira o código e tente novamente.'; return; }
+          if (!resposta.ok) { mensagem.textContent = 'Não foi possível consultar agora. Tente novamente em alguns minutos.'; return; }
+          if (!dados || typeof dados !== 'object' || !dados.codigo) { mensagem.textContent = 'Resposta inesperada. Tente novamente mais tarde.'; return; }
+          preencher('resultado-codigo',dados.codigo);
+          preencher('resultado-status',dados.situacao || dados.status || 'Consultar validade');
+          preencher('resultado-contratadas',numero(dados.quantidade_contratada));
+          preencher('resultado-utilizadas',numero(dados.quantidade_utilizada));
+          preencher('resultado-saldo',numero(dados.saldo ?? (Number(dados.quantidade_contratada)-Number(dados.quantidade_utilizada))));
+          preencher('resultado-inicio',dataBR(dados.inicio_validade));
+          preencher('resultado-vencimento',dataBR(dados.vencimento));
+          resultado.hidden = false;
+        } catch (erro) {
+          mensagem.textContent = erro.name === 'AbortError' ? 'A consulta demorou mais que o esperado. Tente novamente.' : 'Não foi possível conectar ao serviço. Verifique sua internet e tente novamente.';
+        } finally {
+          clearTimeout(limite);
+          botao.disabled = false;
+          botao.textContent = 'Consultar';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
